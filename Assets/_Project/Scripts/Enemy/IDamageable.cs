@@ -4,5 +4,6 @@ public interface IDamageable
 }
 public interface IRemoveShooter
 {
-    void RemoveShooterBossFight(int enemyCount);
+    void RemoveShooterFight(int enemyCount);
 }
+

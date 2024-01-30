@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace _Project.Scripts.Enemy
@@ -6,35 +7,73 @@ namespace _Project.Scripts.Enemy
     {
         [SerializeField] private Animator[] animators;
 
-        [SerializeField] private PlayerCrowd playerCrowd;
+        [HideInInspector] public int EnemyCount;
 
-        private int _enemyCount;
+        private static readonly int AnimIDDead = Animator.StringToHash("isDead");
+        private static readonly int AnimIDShoot = Animator.StringToHash("isShooting");
 
         private void Awake()
         {
             animators = GetComponentsInChildren<Animator>();
-            _enemyCount = animators.Length;
+            EnemyCount = animators.Length;
         }
 
-        //---------------------------------------------------------------------------
-        public void TakeDamage(int playerCount)
+
+        private void OnEnable()
         {
-            int leftPlayerCount = playerCount - _enemyCount;
+            SubscribeEvents();
+        }
+
+        private void OnDisable()
+        {
+            UnSubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            Signals.Instance.OnTriggerEnter += WarController;
+            Signals.Instance.OnGetPlayerNumber += SetData;
+        }
+
+        private void UnSubscribeEvents()
+        {
+            Signals.Instance.OnTriggerEnter -= WarController;
+            Signals.Instance.OnGetPlayerNumber -= SetData;
+        }
+
+        private void WarController()
+        {
+            foreach (var animator in animators)
+            {
+                animator.SetBool(AnimIDShoot, true);
+            }
+        }
+
+        private void SetData(int arg0)
+        {
+            StartCoroutine(TakeDamage(arg0));
+        }
+
+
+        public IEnumerator TakeDamage(int playerNumber)
+        {
             //leftEnemyCount = (int)Mathf.Lerp(0, _enemyCount, leftEnemyCount);
 
-            if (leftPlayerCount > 0)
+            yield return new WaitForSeconds(1f);
+
+            if (playerNumber - EnemyCount > 0)
             {
-                for (int i = 0; i < _enemyCount; i++)
+                for (int i = 0; i < EnemyCount; i++)
                 {
-                    animators[i].SetBool("isDead", true);
+                    animators[i].SetBool(AnimIDDead, true);
                 }
                 //Debug.Log("Player Win");
             }
             else
             {
-                for (int i = 0; i < playerCount; i++)
+                for (int i = 0; i < playerNumber; i++)
                 {
-                    animators[i].SetBool("isDead", true);
+                    animators[i].SetBool(AnimIDDead, true);
                 }
                 //Debug.Log("Player Lose");
             }
@@ -44,16 +83,5 @@ namespace _Project.Scripts.Enemy
             //GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.gray);
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                int firstEnemyCount = _enemyCount;
-                TakeDamage(playerCrowd.Shooters.Count);
-
-                var damageable = other.gameObject.GetComponent<IRemoveShooter>();
-                damageable.RemoveShooterBossFight(firstEnemyCount);
-            }
-        }
     }
 }

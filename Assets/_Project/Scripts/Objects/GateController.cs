@@ -1,4 +1,3 @@
-using RakibJahan;
 using UnityEngine;
 
 public class GateController : MonoBehaviour
@@ -8,7 +7,7 @@ public class GateController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PlayerClone") || other.gameObject.CompareTag("Player"))
         {
-            playerCrowd.StartCoroutine(playerCrowd.StopGame());
+            GameManager.Instance.StartCoroutine(GameManager.Instance.StopGame());
         }
     }
 }
