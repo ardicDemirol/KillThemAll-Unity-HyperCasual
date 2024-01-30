@@ -1,5 +1,4 @@
 using UnityEngine;
-using RakibJahan;
 
 namespace _Project.Scripts.Enemy
 {
@@ -18,7 +17,7 @@ namespace _Project.Scripts.Enemy
         }
 
         //---------------------------------------------------------------------------
-        public void TestDamage(int playerCount)
+        public void TakeDamage(int playerCount)
         {
             int leftPlayerCount = playerCount - _enemyCount;
             //leftEnemyCount = (int)Mathf.Lerp(0, _enemyCount, leftEnemyCount);
@@ -49,11 +48,8 @@ namespace _Project.Scripts.Enemy
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                Debug.Log(other.gameObject.name);
-
                 int firstEnemyCount = _enemyCount;
-                TestDamage(playerCrowd.Shooters.Count);
-
+                TakeDamage(playerCrowd.Shooters.Count);
 
                 var damageable = other.gameObject.GetComponent<IRemoveShooter>();
                 damageable.RemoveShooterBossFight(firstEnemyCount);

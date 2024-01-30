@@ -7,11 +7,8 @@ public class ObstacleDetection : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PlayerClone"))
         {
-            Debug.Log("Player Hit");
-
             playerCrowd.Shooters.Remove(other.gameObject.GetComponent<PlayerShooter>());
             //playerCrowd.ArrangeShooters();
-
             Destroy(other.gameObject);
         }
     }

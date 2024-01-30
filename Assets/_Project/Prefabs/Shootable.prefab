@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1b441b93754aa5858215a7cb6e2598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 20
+  MoveSpeed: 12
 --- !u!114 &5577694768544118648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379aa4a782ad41b4a1afa543ff0b2df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootableSurviveTime: 0
+  shootableSurviveTime: 2
 --- !u!65 &5422325040602234573
 BoxCollider:
   m_ObjectHideFlags: 0

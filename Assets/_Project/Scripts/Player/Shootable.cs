@@ -1,31 +1,28 @@
 using UnityEngine;
 
-namespace RakibJahan
+public class Shootable : MonoBehaviour
 {
-    public class Shootable : MonoBehaviour
+    [SerializeField] private float shootableSurviveTime = 3f;
+    private int _damagePerHit = 10;
+
+    public void Init(int damagePerHit)
     {
-        [SerializeField] private float shootableSurviveTime = 3f;
-        private int _damagePerHit = 10;
+        _damagePerHit = damagePerHit;
+        Invoke(nameof(DestroyShootable), shootableSurviveTime);
+    }
 
-        public void Init(int damagePerHit)
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Damageable"))
         {
-            _damagePerHit = damagePerHit;
-            Invoke(nameof(DestroyShootable), shootableSurviveTime);
+            var damageable = collision.transform.GetComponentInChildren<IDamageable>();
+            damageable.Damage(_damagePerHit);
+            DestroyShootable();
         }
+    }
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (collision.transform.CompareTag("Damageable"))
-            {
-                var damageable = collision.transform.GetComponentInChildren<IDamageable>();
-                damageable.Damage(_damagePerHit);
-                DestroyShootable();
-            }
-        }
-
-        private void DestroyShootable()
-        {
-            Destroy(gameObject);
-        }
+    private void DestroyShootable()
+    {
+        Destroy(gameObject);
     }
 }
