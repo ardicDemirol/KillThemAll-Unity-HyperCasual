@@ -13,11 +13,13 @@ public class PlayerController : MonoBehaviour
                 modifier.Modify(this);
             }
         }
-        else if (other.CompareTag("Damageable"))
+        else if (other.CompareTag("Enemy"))
         {
-            Signals.Instance.OnTriggerEnter?.Invoke();
+            Signals.Instance.OnTriggerEnterEnemy?.Invoke();
             Signals.Instance.OnGetPlayerNumber?.Invoke(GameManager.Instance.playerCrowd.Shooters.Count);
             Signals.Instance.OnGetEnemyNumber?.Invoke(GameManager.Instance.enemy.EnemyCount);
         }
+
+        Signals.Instance.OnChangePlayerNumber?.Invoke(GameManager.Instance.playerCrowd.Shooters.Count);
     }
 }

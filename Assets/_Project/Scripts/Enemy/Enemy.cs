@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace _Project.Scripts.Enemy
@@ -7,15 +8,21 @@ namespace _Project.Scripts.Enemy
     {
         [SerializeField] private Animator[] animators;
 
+        [SerializeField] private TMP_Text enemySizeText;
+
         [HideInInspector] public int EnemyCount;
+
+        private readonly WaitForSeconds _waitForOneSeconds = new(1f);
 
         private static readonly int AnimIDDead = Animator.StringToHash("isDead");
         private static readonly int AnimIDShoot = Animator.StringToHash("isShooting");
+
 
         private void Awake()
         {
             animators = GetComponentsInChildren<Animator>();
             EnemyCount = animators.Length;
+            ChangeEnemyNumber(EnemyCount);
         }
 
 
@@ -31,14 +38,25 @@ namespace _Project.Scripts.Enemy
 
         private void SubscribeEvents()
         {
-            Signals.Instance.OnTriggerEnter += WarController;
+            Signals.Instance.OnTriggerEnterEnemy += WarController;
             Signals.Instance.OnGetPlayerNumber += SetData;
+            Signals.Instance.OnChangeEnemyNumber += ChangeEnemyNumber;
         }
 
         private void UnSubscribeEvents()
         {
-            Signals.Instance.OnTriggerEnter -= WarController;
+            Signals.Instance.OnTriggerEnterEnemy -= WarController;
             Signals.Instance.OnGetPlayerNumber -= SetData;
+            Signals.Instance.OnChangeEnemyNumber -= ChangeEnemyNumber;
+        }
+
+        private void ChangeEnemyNumber(int enemyCount)
+        {
+            //StringBuilder stringBuilder = new();
+            //stringBuilder.Append(EnemyCount);
+            //enemySizeText.text = stringBuilder.ToString();
+            enemyCount = Mathf.Clamp(enemyCount, 0, EnemyCount);
+            enemySizeText.text = enemyCount.ToString();
         }
 
         private void WarController()
@@ -57,9 +75,7 @@ namespace _Project.Scripts.Enemy
 
         public IEnumerator TakeDamage(int playerNumber)
         {
-            //leftEnemyCount = (int)Mathf.Lerp(0, _enemyCount, leftEnemyCount);
-
-            yield return new WaitForSeconds(1f);
+            yield return _waitForOneSeconds;
 
             if (playerNumber - EnemyCount > 0)
             {
@@ -67,6 +83,9 @@ namespace _Project.Scripts.Enemy
                 {
                     animators[i].SetBool(AnimIDDead, true);
                 }
+                
+                Signals.Instance.OnPlayerWin?.Invoke();
+
                 //Debug.Log("Player Win");
             }
             else
@@ -75,13 +94,20 @@ namespace _Project.Scripts.Enemy
                 {
                     animators[i].SetBool(AnimIDDead, true);
                 }
+
+                Signals.Instance.OnPlayerLose?.Invoke();
                 //Debug.Log("Player Lose");
             }
+
+            ChangeEnemyNumber(EnemyCount - playerNumber);
+
 
             //_enemyCount -= playerCount;
             //GetComponent<Collider>().enabled = false;
             //GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.gray);
         }
+
+
 
     }
 }

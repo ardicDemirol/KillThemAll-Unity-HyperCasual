@@ -6,9 +6,9 @@ public class ObstacleController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PlayerClone"))
         {
-            playerCrowd.Shooters.Remove(other.gameObject.GetComponent<Shooter>());
+            //playerCrowd.Shooters.Remove(other.gameObject.GetComponent<Shooter>());
             //playerCrowd.ArrangeShooters();
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
         }
     }
 }

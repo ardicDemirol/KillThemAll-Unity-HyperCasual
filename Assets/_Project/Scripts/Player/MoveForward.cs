@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class MoveForward : MonoSingleton<MoveForward>
 {
+    #region Variables
+    public float MoveSpeed = 10f;
     public enum MoveDirection
     {
         Forward,
@@ -10,11 +12,10 @@ public class MoveForward : MonoSingleton<MoveForward>
         Right
     }
 
-    public float MoveSpeed = 10f;
-
     private Vector3 moveDirectionVector;
-    private readonly MoveDirection _moveDirection;
+    public MoveDirection _moveDirection;
 
+    #endregion
 
     private void Start()
     {

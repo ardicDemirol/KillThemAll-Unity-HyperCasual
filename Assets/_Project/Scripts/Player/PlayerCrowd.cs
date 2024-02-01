@@ -18,19 +18,20 @@ public class PlayerCrowd : MonoBehaviour
 
     [SerializeField] private TMP_Text crowdSizeText;
 
-    private static readonly int AnimIDDead = Animator.StringToHash("isDead");
+    private readonly WaitForSeconds _waitForOneSeconds = new(1f);
+
     private static readonly int AnimIDShoot = Animator.StringToHash("isShooting");
+    private static readonly int AnimIDDeath = Animator.StringToHash("isDead");
 
+    private Shooter _willBeRemoveShooter;
     #endregion
-
 
     private void OnEnable() => SubscribeEvents();
 
-
-    private void Start()
+    private void Awake()
     {
         Set(startingCrowdSize);
-        crowdSizeText.text = Shooters.Count.ToString();
+        SetPlayerNumber(Shooters.Count);
     }
 
     private void OnDisable() => UnSubscribeEvents();
@@ -41,14 +42,23 @@ public class PlayerCrowd : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        Signals.Instance.OnTriggerEnter += WarController;
+        Signals.Instance.OnTriggerEnterEnemy += WarController;
+        Signals.Instance.OnTriggerEnterObstacle += RemoveShooter;
         Signals.Instance.OnGetEnemyNumber += SetData;
+        Signals.Instance.OnChangePlayerNumber += SetPlayerNumber;
+
     }
     private void UnSubscribeEvents()
     {
-        Signals.Instance.OnTriggerEnter -= WarController;
+        Signals.Instance.OnTriggerEnterEnemy -= WarController;
+        Signals.Instance.OnTriggerEnterObstacle -= RemoveShooter;
         Signals.Instance.OnGetEnemyNumber -= SetData;
+        Signals.Instance.OnChangePlayerNumber -= SetPlayerNumber;
+    }
 
+    private void SetPlayerNumber(int playerCount)
+    {
+        crowdSizeText.text = playerCount.ToString();
     }
 
     private void SetData(int arg0)
@@ -71,9 +81,9 @@ public class PlayerCrowd : MonoBehaviour
         if (Shooters.Count == amount) return;
         var needToRemove = amount < Shooters.Count;
         var needToAdd = amount > Shooters.Count;
-        if (amount != Shooters.Count)
+        while(amount != Shooters.Count)
         {
-            if (needToRemove) RemoveShooter();
+            if (needToRemove) RemoveShooter(null);
             else if (needToAdd) AddShooter();
         }
     }
@@ -86,20 +96,26 @@ public class PlayerCrowd : MonoBehaviour
     {
         return Shooters.Count - 1 >= 0;
     }
-
-    public void RemoveShooter()
+    public void RemoveShooter(GameObject obj)
     {
-        if (!CanRemove())
-        {
-            GameManager.Instance.StartCoroutine(GameManager.Instance.StopGame());
-            Debug.Log(1);
-        }
-        var lastShooter = Shooters[^1];
-        Shooters.Remove(lastShooter);
-        Destroy(lastShooter.gameObject);
+        if (!CanRemove()) GameManager.Instance.StartCoroutine(GameManager.Instance.StopGame());
 
-        ArrangeShooters();
+        _willBeRemoveShooter = Shooters[^1];
+
+        if (obj)
+        {
+            _willBeRemoveShooter = obj.GetComponent<Shooter>();
+            //Destroy(_willBeRemoveShooter.gameObject);
+        }
+
+        _willBeRemoveShooter.GetComponent<Animator>().SetBool(AnimIDDeath, true);
+        _willBeRemoveShooter.transform.SetParent(null);
+
+        Shooters.Remove(_willBeRemoveShooter);
+
+        StartCoroutine(ArrangeShooters());
     }
+
     public void AddShooter()
     {
         if (!CanAdd()) return;
@@ -107,13 +123,12 @@ public class PlayerCrowd : MonoBehaviour
         var position = spawnPoints[lastShooterIndex + 1].position;
         var shooter = Instantiate(shooterPrefab, position, Quaternion.identity, transform);
         Shooters.Add(shooter);
-
-        ArrangeShooters();
+        StartCoroutine(ArrangeShooters());
     }
-    public void ArrangeShooters()
+    public IEnumerator ArrangeShooters()
     {
         //Shooters.Sort((a, b) => a.transform.position.x.CompareTo(b.transform.position.x));
-
+        yield return _waitForOneSeconds;
         for (int i = 0; i < Shooters.Count; i++)
         {
             var newPosition = spawnPoints[i].position;
@@ -121,22 +136,27 @@ public class PlayerCrowd : MonoBehaviour
         }
     }
 
-
     private IEnumerator RemoveShooterFight(int enemyNumber)
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return _waitForOneSeconds;
+
         for (int i = 0; i < enemyNumber; i++)
         {
             var lastShooter = Shooters[^1];
             Shooters.Remove(lastShooter);
-            Destroy(lastShooter.gameObject);
+
+            lastShooter.GetComponent<Animator>().SetBool(AnimIDDeath, true);
+            //Destroy(lastShooter.gameObject);
 
             if (Shooters.Count <= 0)
             {
                 GameManager.Instance.StartCoroutine(GameManager.Instance.StopGame());
             }
         }
+
+        Signals.Instance.OnChangePlayerNumber?.Invoke(Shooters.Count);
+
     }
-   
+
 
 }

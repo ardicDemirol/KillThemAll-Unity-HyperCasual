@@ -8,6 +8,8 @@ TagManager:
   - Damageable
   - PlayerClone
   - Gate
+  - Enemy
+  - Obstacle
   layers:
   - Default
   - TransparentFX

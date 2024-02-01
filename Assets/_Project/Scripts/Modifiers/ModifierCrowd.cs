@@ -1,8 +1,4 @@
-using System;
-using RakibJahan;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Modifiers
 {
@@ -25,7 +21,7 @@ namespace Modifiers
             for (int i = 0; i < Mathf.Abs(crowdModifyAmount); i++)
             {
                 if(_isPositive) playerCrowd.AddShooter();
-                else playerCrowd.RemoveShooter();
+                else playerCrowd.RemoveShooter(null);
             }
         }
     }
