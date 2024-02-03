@@ -148,6 +148,8 @@ public class PlayerCrowd : MonoBehaviour
             lastShooter.GetComponent<Animator>().SetBool(AnimIDDeath, true);
             //Destroy(lastShooter.gameObject);
 
+            lastShooter.transform.SetParent(null);
+
             if (Shooters.Count <= 0)
             {
                 GameManager.Instance.StartCoroutine(GameManager.Instance.StopGame());

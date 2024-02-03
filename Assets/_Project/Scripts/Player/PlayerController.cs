@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private bool _isPlayerInTrigger;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Modifier"))
+        if (other.CompareTag("Modifier") && !_isPlayerInTrigger)
         {
+            _isPlayerInTrigger = true;
             var modifier = other.GetComponent<ModifierBase>();
             if (modifier)
             {
@@ -22,4 +24,6 @@ public class PlayerController : MonoBehaviour
 
         Signals.Instance.OnChangePlayerNumber?.Invoke(GameManager.Instance.playerCrowd.Shooters.Count);
     }
+
+    private void OnTriggerExit(Collider other) => _isPlayerInTrigger = false;
 }

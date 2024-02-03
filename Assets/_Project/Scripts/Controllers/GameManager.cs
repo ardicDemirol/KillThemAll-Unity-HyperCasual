@@ -1,4 +1,3 @@
-using _Project.Scripts.Enemy;
 using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager>

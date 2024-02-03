@@ -8,25 +8,21 @@ public class Shooter : MonoBehaviour
     }
     public ShooterType type;
 
-
     [SerializeField] private int damagePerShootable = 100;
     [SerializeField] private Shootable shootablePrefab;
     [SerializeField] private Transform shootFrom;
+    
     private Animator _animator;
 
     private static readonly int AnimIDShoot = Animator.StringToHash("isShooting");
     private static readonly int AnimIDDeath = Animator.StringToHash("isDead");
-
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
     }
 
-    private void OnEnable()
-    {
-        SubscribeEvents();
-    }
+    private void OnEnable() => SubscribeEvents();
 
     private void OnTriggerEnter(Collider other)
     {
@@ -38,10 +34,7 @@ public class Shooter : MonoBehaviour
         }
     }
 
-    void OnDisable()
-    {
-        UnSubscribeEvents();
-    }
+    void OnDisable() => UnSubscribeEvents();
 
     private void SubscribeEvents()
     {
@@ -63,26 +56,12 @@ public class Shooter : MonoBehaviour
 
     private void EndGamePlayerWinController()
     {
-        if (type == ShooterType.Player)
-        {
-            _animator.SetBool(AnimIDShoot, false);
-        }
-        else
-        {
-            //
-            _animator.SetBool(AnimIDDeath, true);
-        }
+        if (type == ShooterType.Player) _animator.SetBool(AnimIDShoot, false);
+        else _animator.SetBool(AnimIDDeath, true);
     }
     private void EndGamePlayerLoseController()
     {
-        if (type == ShooterType.Player)
-        {
-            //
-            _animator.SetBool(AnimIDDeath, true);
-        }
-        else
-        {
-            _animator.SetBool(AnimIDShoot, false);
-        }
+        if (type == ShooterType.Player) _animator.SetBool(AnimIDDeath, true);
+        else _animator.SetBool(AnimIDShoot, false);
     }
 }

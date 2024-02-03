@@ -12,5 +12,6 @@ public class Signals : MonoSingleton<Signals>
     public UnityAction OnPlayDieAnimation = delegate { };
     public UnityAction OnPlayerWin = delegate { };
     public UnityAction OnPlayerLose = delegate { };
+    //public UnityAction OnLevelFinished = delegate { };
 
 }
