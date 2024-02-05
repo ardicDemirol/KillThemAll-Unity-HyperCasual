@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class Signals : MonoSingleton<Signals>
 {
-    public UnityAction OnTriggerEnterEnemy = delegate { };
+    public UnityAction OnTriggerEnter = delegate { };
     public UnityAction<GameObject> OnTriggerEnterObstacle = delegate { };
     public UnityAction<int> OnGetPlayerNumber = delegate { };
     public UnityAction<int> OnGetEnemyNumber = delegate { };
@@ -12,6 +12,5 @@ public class Signals : MonoSingleton<Signals>
     public UnityAction OnPlayDieAnimation = delegate { };
     public UnityAction OnPlayerWin = delegate { };
     public UnityAction OnPlayerLose = delegate { };
-    //public UnityAction OnLevelFinished = delegate { };
-
+    public UnityAction OnGameRunning = delegate { };
 }

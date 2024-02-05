@@ -1,43 +1,74 @@
 using UnityEngine;
 
-public class MoveForward : MonoSingleton<MoveForward>
+public class MoveForward : MonoBehaviour
 {
     #region Variables
-    public float MoveSpeed = 10f;
-    public enum MoveDirection
+    [SerializeField] private float moveSpeed = 8f;
+    [HideInInspector] public float CurrentMoveSpeed = 0f;
+    public enum Direction
     {
         Forward,
         Backward,
-        Left,
-        Right
     }
+    public enum Type
+    {
+        Player,
+        Bullet
+    }
+    public Direction MoveDirection;
+    public Type ObjectType;
+
+   
+    private float _normalMoveSpeed;
+    private float _speed;
 
     private Vector3 moveDirectionVector;
-    public MoveDirection _moveDirection;
+
 
     #endregion
 
+    private void OnEnable() => SubscribeEvents();
+
     private void Start()
     {
-        switch (_moveDirection)
+        if(ObjectType == Type.Player)
         {
-            case MoveDirection.Forward:
+            _normalMoveSpeed = moveSpeed;
+        }
+        else
+        {
+            CurrentMoveSpeed = moveSpeed;   
+        }
+
+        switch (MoveDirection)
+        {
+            case Direction.Forward:
                 moveDirectionVector = Vector3.forward;
                 break;
-            case MoveDirection.Backward:
+            case Direction.Backward:
                 moveDirectionVector = Vector3.back;
-                break;
-            case MoveDirection.Left:
-                moveDirectionVector = Vector3.left;
-                break;
-            case MoveDirection.Right:
-                moveDirectionVector = Vector3.right;
                 break;
         }
     }
-
     private void Update()
     {
-        transform.position += moveDirectionVector * (MoveSpeed * Time.deltaTime);
+        transform.position += moveDirectionVector * (CurrentMoveSpeed * Time.deltaTime);
     }
+    private void OnDisable() => UnSubscribeEvents();
+
+
+    public void SubscribeEvents()
+    {
+        Signals.Instance.OnGameRunning += SetRunningSpeed;
+    }
+
+    public void UnSubscribeEvents()
+    {
+        Signals.Instance.OnGameRunning -= SetRunningSpeed;
+    }
+    private void SetRunningSpeed()
+    {
+        CurrentMoveSpeed = _normalMoveSpeed;
+    }
+
 }

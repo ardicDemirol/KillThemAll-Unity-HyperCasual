@@ -6,6 +6,7 @@ public class SwerveMovement : MonoBehaviour
     [SerializeField] private float maxPositionX = 2f;
     private Vector2 _anchorPosition;
     private bool _canMove = true;
+    private bool _isGameStarted;
 
     private void OnEnable() => SubscribeEvents();
 
@@ -30,11 +31,11 @@ public class SwerveMovement : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        Signals.Instance.OnTriggerEnterEnemy += CanMove;
+        Signals.Instance.OnTriggerEnter += CanMove;
     }
     private void UnSubscribeEvents()
     {
-        Signals.Instance.OnTriggerEnterEnemy -= CanMove;
+        Signals.Instance.OnTriggerEnter -= CanMove;
     }
 
     private void CanMove() => _canMove = false;
@@ -56,9 +57,14 @@ public class SwerveMovement : MonoBehaviour
         var inputX = 0f;
         if (Input.GetMouseButtonDown(0))
         {
+            if (!_isGameStarted)
+            {
+                _isGameStarted = true;
+                Signals.Instance.OnGameRunning?.Invoke();
+            }
+
             _anchorPosition = Input.mousePosition;
         }
-
         else if (Input.GetMouseButton(0))
         {
             inputX = (Input.mousePosition.x - _anchorPosition.x);

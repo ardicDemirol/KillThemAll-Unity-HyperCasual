@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5422325040602234573}
   - component: {fileID: 3087514861832445638}
   m_Layer: 7
-  m_Name: Shootable
+  m_Name: ShootablePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1b441b93754aa5858215a7cb6e2598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 12
+  moveSpeed: 8
+  CurrentMoveSpeed: 0
+  MoveDirection: 0
+  ObjectType: 1
 --- !u!114 &5577694768544118648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,14 +148,14 @@ MeshRenderer:
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8d261b474399da0469ec2c92e8d12bb5, type: 2}
+  - {fileID: 2100000, guid: 26bc40636e749af4089cf8069c166a82, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

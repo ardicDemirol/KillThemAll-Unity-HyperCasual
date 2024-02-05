@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.CompareTag("Enemy"))
         {
-            Signals.Instance.OnTriggerEnterEnemy?.Invoke();
+            Signals.Instance.OnTriggerEnter?.Invoke();
             Signals.Instance.OnGetPlayerNumber?.Invoke(GameManager.Instance.playerCrowd.Shooters.Count);
             Signals.Instance.OnGetEnemyNumber?.Invoke(GameManager.Instance.enemy.EnemyCount);
         }

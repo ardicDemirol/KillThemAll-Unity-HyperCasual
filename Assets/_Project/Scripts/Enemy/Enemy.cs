@@ -5,16 +5,13 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private Animator[] animators;
-
     [SerializeField] private TMP_Text enemySizeText;
-
     [HideInInspector] public int EnemyCount;
 
     private readonly WaitForSeconds _waitForOneSeconds = new(1f);
 
     private static readonly int AnimIDDead = Animator.StringToHash("isDead");
     private static readonly int AnimIDShoot = Animator.StringToHash("isShooting");
-
 
     private void Awake()
     {
@@ -24,26 +21,18 @@ public class Enemy : MonoBehaviour
     }
 
 
-    private void OnEnable()
-    {
-        SubscribeEvents();
-    }
-
-    private void OnDisable()
-    {
-        UnSubscribeEvents();
-    }
-
+    private void OnEnable() => SubscribeEvents();
+    private void OnDisable() => UnSubscribeEvents();
     private void SubscribeEvents()
     {
-        Signals.Instance.OnTriggerEnterEnemy += WarController;
+        Signals.Instance.OnTriggerEnter += WarController;
         Signals.Instance.OnGetPlayerNumber += SetData;
         Signals.Instance.OnChangeEnemyNumber += ChangeEnemyNumber;
     }
 
     private void UnSubscribeEvents()
     {
-        Signals.Instance.OnTriggerEnterEnemy -= WarController;
+        Signals.Instance.OnTriggerEnter -= WarController;
         Signals.Instance.OnGetPlayerNumber -= SetData;
         Signals.Instance.OnChangeEnemyNumber -= ChangeEnemyNumber;
     }
@@ -65,11 +54,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void SetData(int arg0)
-    {
-        StartCoroutine(TakeDamage(arg0));
-    }
-
+    private void SetData(int arg0) => StartCoroutine(TakeDamage(arg0));
 
     public IEnumerator TakeDamage(int playerNumber)
     {
@@ -80,6 +65,7 @@ public class Enemy : MonoBehaviour
             for (int i = 0; i < EnemyCount; i++)
             {
                 animators[i].SetBool(AnimIDDead, true);
+                animators[i].GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.gray);
             }
 
             Signals.Instance.OnPlayerWin?.Invoke();
@@ -91,6 +77,7 @@ public class Enemy : MonoBehaviour
             for (int i = 0; i < playerNumber; i++)
             {
                 animators[i].SetBool(AnimIDDead, true);
+                animators[i].GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.gray);
             }
 
             Signals.Instance.OnPlayerLose?.Invoke();
@@ -99,9 +86,6 @@ public class Enemy : MonoBehaviour
 
         ChangeEnemyNumber(EnemyCount - playerNumber);
 
-
-        //_enemyCount -= playerCount;
         //GetComponent<Collider>().enabled = false;
-        //GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.gray);
     }
 }

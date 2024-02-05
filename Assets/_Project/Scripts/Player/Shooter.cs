@@ -8,7 +8,6 @@ public class Shooter : MonoBehaviour
     }
     public ShooterType type;
 
-    [SerializeField] private int damagePerShootable = 100;
     [SerializeField] private Shootable shootablePrefab;
     [SerializeField] private Transform shootFrom;
     
@@ -51,7 +50,7 @@ public class Shooter : MonoBehaviour
 
     public void Shoot()
     {
-        Instantiate(shootablePrefab, shootFrom.position, Quaternion.identity).Init(damagePerShootable);
+        Instantiate(shootablePrefab, shootFrom.position, Quaternion.identity).Init();
     }
 
     private void EndGamePlayerWinController()

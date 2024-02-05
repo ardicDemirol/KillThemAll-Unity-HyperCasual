@@ -42,7 +42,7 @@ public class PlayerCrowd : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        Signals.Instance.OnTriggerEnterEnemy += WarController;
+        Signals.Instance.OnTriggerEnter += WarController;
         Signals.Instance.OnTriggerEnterObstacle += RemoveShooter;
         Signals.Instance.OnGetEnemyNumber += SetData;
         Signals.Instance.OnChangePlayerNumber += SetPlayerNumber;
@@ -50,7 +50,7 @@ public class PlayerCrowd : MonoBehaviour
     }
     private void UnSubscribeEvents()
     {
-        Signals.Instance.OnTriggerEnterEnemy -= WarController;
+        Signals.Instance.OnTriggerEnter -= WarController;
         Signals.Instance.OnTriggerEnterObstacle -= RemoveShooter;
         Signals.Instance.OnGetEnemyNumber -= SetData;
         Signals.Instance.OnChangePlayerNumber -= SetPlayerNumber;
@@ -68,7 +68,7 @@ public class PlayerCrowd : MonoBehaviour
 
     private void WarController()
     {
-        MoveForward.Instance.MoveSpeed = 0;
+        GameManager.Instance.moveForward.CurrentMoveSpeed = 0;
         animators = GetComponentsInChildren<Animator>();
         foreach (var animator in animators)
         {
@@ -81,7 +81,7 @@ public class PlayerCrowd : MonoBehaviour
         if (Shooters.Count == amount) return;
         var needToRemove = amount < Shooters.Count;
         var needToAdd = amount > Shooters.Count;
-        while(amount != Shooters.Count)
+        while (amount != Shooters.Count)
         {
             if (needToRemove) RemoveShooter(null);
             else if (needToAdd) AddShooter();
@@ -98,8 +98,6 @@ public class PlayerCrowd : MonoBehaviour
     }
     public void RemoveShooter(GameObject obj)
     {
-        if (!CanRemove()) GameManager.Instance.StartCoroutine(GameManager.Instance.StopGame());
-
         _willBeRemoveShooter = Shooters[^1];
 
         if (obj)
@@ -109,9 +107,18 @@ public class PlayerCrowd : MonoBehaviour
         }
 
         _willBeRemoveShooter.GetComponent<Animator>().SetBool(AnimIDDeath, true);
+        _willBeRemoveShooter.GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.gray);
+
         _willBeRemoveShooter.transform.SetParent(null);
 
         Shooters.Remove(_willBeRemoveShooter);
+
+        if (!CanRemove())
+        {
+            GameManager.Instance.StartCoroutine(GameManager.Instance.StopGame());
+            Signals.Instance.OnTriggerEnter?.Invoke();
+            //Signals.Instance.OnGameStopping?.Invoke();
+        }
 
         StartCoroutine(ArrangeShooters());
     }
@@ -146,13 +153,14 @@ public class PlayerCrowd : MonoBehaviour
             Shooters.Remove(lastShooter);
 
             lastShooter.GetComponent<Animator>().SetBool(AnimIDDeath, true);
-            //Destroy(lastShooter.gameObject);
-
             lastShooter.transform.SetParent(null);
+            lastShooter.GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.red);
+
 
             if (Shooters.Count <= 0)
             {
                 GameManager.Instance.StartCoroutine(GameManager.Instance.StopGame());
+                Signals.Instance.OnTriggerEnter?.Invoke();
             }
         }
 
