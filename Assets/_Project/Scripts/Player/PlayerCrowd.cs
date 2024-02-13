@@ -68,7 +68,7 @@ public class PlayerCrowd : MonoBehaviour
 
     private void WarController()
     {
-        GameManager.Instance.moveForward.CurrentMoveSpeed = 0;
+        GameManager.Instance.MoveForward.CurrentMoveSpeed = 0;
         animators = GetComponentsInChildren<Animator>();
         foreach (var animator in animators)
         {
@@ -98,13 +98,11 @@ public class PlayerCrowd : MonoBehaviour
     }
     public void RemoveShooter(GameObject obj)
     {
+        if(Shooters.Count == 0) return;
+
         _willBeRemoveShooter = Shooters[^1];
 
-        if (obj)
-        {
-            _willBeRemoveShooter = obj.GetComponent<Shooter>();
-            //Destroy(_willBeRemoveShooter.gameObject);
-        }
+        if (obj) _willBeRemoveShooter = obj.GetComponent<Shooter>();
 
         _willBeRemoveShooter.GetComponent<Animator>().SetBool(AnimIDDeath, true);
         _willBeRemoveShooter.GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.gray);
@@ -115,7 +113,8 @@ public class PlayerCrowd : MonoBehaviour
 
         if (!CanRemove())
         {
-            GameManager.Instance.StartCoroutine(GameManager.Instance.StopGame());
+            //GameManager.Instance.StartCoroutine(GameManager.Instance.EndGame());
+            Signals.Instance.OnPlayerLose?.Invoke();
             Signals.Instance.OnTriggerEnter?.Invoke();
             //Signals.Instance.OnGameStopping?.Invoke();
         }
@@ -130,6 +129,7 @@ public class PlayerCrowd : MonoBehaviour
         var position = spawnPoints[lastShooterIndex + 1].position;
         var shooter = Instantiate(shooterPrefab, position, Quaternion.identity, transform);
         Shooters.Add(shooter);
+        
         StartCoroutine(ArrangeShooters());
     }
     public IEnumerator ArrangeShooters()
@@ -149,6 +149,8 @@ public class PlayerCrowd : MonoBehaviour
 
         for (int i = 0; i < enemyNumber; i++)
         {
+            if (Shooters.Count == 0) break;
+
             var lastShooter = Shooters[^1];
             Shooters.Remove(lastShooter);
 
@@ -159,13 +161,13 @@ public class PlayerCrowd : MonoBehaviour
 
             if (Shooters.Count <= 0)
             {
-                GameManager.Instance.StartCoroutine(GameManager.Instance.StopGame());
+                //GameManager.Instance.StartCoroutine(GameManager.Instance.EndGame());
+                Signals.Instance.OnPlayerLose?.Invoke();
                 Signals.Instance.OnTriggerEnter?.Invoke();
             }
         }
 
         Signals.Instance.OnChangePlayerNumber?.Invoke(Shooters.Count);
-
     }
 
 

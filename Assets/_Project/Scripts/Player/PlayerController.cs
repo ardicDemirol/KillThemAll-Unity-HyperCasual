@@ -18,11 +18,11 @@ public class PlayerController : MonoBehaviour
         else if (other.CompareTag("Enemy"))
         {
             Signals.Instance.OnTriggerEnter?.Invoke();
-            Signals.Instance.OnGetPlayerNumber?.Invoke(GameManager.Instance.playerCrowd.Shooters.Count);
-            Signals.Instance.OnGetEnemyNumber?.Invoke(GameManager.Instance.enemy.EnemyCount);
+            Signals.Instance.OnGetPlayerNumber?.Invoke(GameManager.Instance.PlayerCrowd.Shooters.Count);
+            Signals.Instance.OnGetEnemyNumber?.Invoke(GameManager.Instance.Enemy.EnemyCount);
         }
 
-        Signals.Instance.OnChangePlayerNumber?.Invoke(GameManager.Instance.playerCrowd.Shooters.Count);
+        Signals.Instance.OnChangePlayerNumber?.Invoke(GameManager.Instance.PlayerCrowd.Shooters.Count);
     }
 
     private void OnTriggerExit(Collider other) => _isPlayerInTrigger = false;

@@ -20,7 +20,6 @@ public class MoveForward : MonoBehaviour
 
    
     private float _normalMoveSpeed;
-    private float _speed;
 
     private Vector3 moveDirectionVector;
 

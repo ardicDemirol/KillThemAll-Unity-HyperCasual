@@ -29,7 +29,7 @@ public class Shooter : MonoBehaviour
         {
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             Signals.Instance.OnTriggerEnterObstacle?.Invoke(gameObject);
-            Signals.Instance.OnChangePlayerNumber?.Invoke(GameManager.Instance.playerCrowd.Shooters.Count);
+            Signals.Instance.OnChangePlayerNumber?.Invoke(GameManager.Instance.PlayerCrowd.Shooters.Count);
         }
     }
 
@@ -48,7 +48,7 @@ public class Shooter : MonoBehaviour
     }
 
 
-    public void Shoot()
+    internal void Shoot()
     {
         Instantiate(shootablePrefab, shootFrom.position, Quaternion.identity).Init();
     }
