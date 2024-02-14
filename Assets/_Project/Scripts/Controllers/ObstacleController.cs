@@ -3,52 +3,41 @@ using UnityEngine;
 
 public class ObstacleController : MonoBehaviour
 {
-    [SerializeField] Transform target;
+    [SerializeField] private float speed;
+    [SerializeField] private float moveDistance;
+
     public enum ObstacleType
     {
         None,
-        MovePosY,
+        RotateY,
+        RotateZ,
         MovePosZ,
         MovePosX,
         ChangeScale
     }
 
-    public ObstacleType obstacleType;
+    public ObstacleType ObstacleBehaviour;
 
-    float firstPosX;
     private void Start()
     {
-        firstPosX = transform.position.x;
-
-        switch (obstacleType)
+        switch (ObstacleBehaviour)
         {
-            case ObstacleType.MovePosY:
-                transform.DOLocalMoveY(transform.position.y + 10f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
+            case ObstacleType.RotateY:
+                transform.DOLocalRotate(new Vector3(0,180,0), 1/speed).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
+                break;
+            case ObstacleType.RotateZ:
+                transform.DOLocalRotate(new Vector3(0,0,180), 1/speed).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
                 break;
             case ObstacleType.MovePosZ:
-                transform.DOLocalMoveZ(transform.position.z + 5f,1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
+                transform.DOLocalMoveZ(transform.position.z + moveDistance, 1/speed).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
                 break;
             case ObstacleType.MovePosX:
-                transform.DOLocalMoveX(transform.position.x + 5f,1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
+                transform.DOLocalMoveX(transform.position.x + moveDistance, 1 / speed).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
                 break;
             case ObstacleType.ChangeScale:
-                transform.DOScale(new Vector3(2, 2, 2), 1f).SetLoops(-1, LoopType.Yoyo);
+                transform.DOScale(new Vector3(5.5f,1f,1f), 1/speed).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
                 break;
         }
     }
-    void Update()
-    {
-        //switch (obstacleType)
-        //{
-        //    case ObstacleType.MovePosY:
-        //        transform.DOLocalMove(new Vector3(transform.position.x,10f,transform.position.z),1f).SetLoops(5,LoopType.Yoyo);
-        //    case ObstacleType.MovePosZ:
-        //        transform.DOMoveZ(10,1).SetLoops(-1, LoopType.Yoyo);
-        //    case ObstacleType.MovePosX:
-        //        transform.DOMove(new Vector3(firstPosX + 5, transform.position.y, transform.position.z), 1f).SetLoops(5, LoopType.Yoyo);
-        //    case ObstacleType.ChangeScale:
-        //        transform.DOScale(new Vector3(2, 2, 2), 1f).SetLoops(-1, LoopType.Yoyo);
-        //}
-
-    }
+    
 }

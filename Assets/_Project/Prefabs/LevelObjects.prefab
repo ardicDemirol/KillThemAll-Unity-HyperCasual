@@ -4336,6 +4336,7 @@ GameObject:
   - component: {fileID: 1618401132056562494}
   - component: {fileID: 1618401132056562489}
   - component: {fileID: 1618401132056562488}
+  - component: {fileID: 493610568}
   m_Layer: 8
   m_Name: Cube (2)
   m_TagString: Obstacle
@@ -4352,7 +4353,7 @@ Transform:
   m_GameObject: {fileID: 1618401132056562485}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3, y: 0.5443, z: 119.16}
-  m_LocalScale: {x: 3.3633618, y: 1.0887007, z: 1}
+  m_LocalScale: {x: 3.3633618, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1618401132559788845}
@@ -4421,6 +4422,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &493610568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618401132056562485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e043a84845cf689428074eaa7c8c62cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  moveDistance: 3.5
+  obstacleType: 3
 --- !u!1 &1618401132069100446
 GameObject:
   m_ObjectHideFlags: 0
@@ -7044,6 +7060,7 @@ GameObject:
   - component: {fileID: 1618401132813015656}
   - component: {fileID: 1618401132813015659}
   - component: {fileID: 1618401132813015658}
+  - component: {fileID: 1592421703}
   m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Obstacle
@@ -7060,7 +7077,7 @@ Transform:
   m_GameObject: {fileID: 1618401132813015655}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.75, y: 0.5443, z: 55.79}
-  m_LocalScale: {x: 3.3633618, y: 1.0887007, z: 1}
+  m_LocalScale: {x: 3.3633618, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1618401132559788845}
@@ -7129,6 +7146,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1592421703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618401132813015655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e043a84845cf689428074eaa7c8c62cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  moveDistance: 3.5
+  obstacleType: 2
 --- !u!1 &1618401132832993117
 GameObject:
   m_ObjectHideFlags: 0
@@ -7459,6 +7491,7 @@ GameObject:
   - component: {fileID: 1618401132969166425}
   - component: {fileID: 1618401132969166424}
   - component: {fileID: 1618401132969166427}
+  - component: {fileID: 735775297}
   m_Layer: 8
   m_Name: Cube
   m_TagString: Obstacle
@@ -7475,7 +7508,7 @@ Transform:
   m_GameObject: {fileID: 1618401132969166420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.0357, y: 0.5443, z: 111.10258}
-  m_LocalScale: {x: 3.3633618, y: 1.0887007, z: 1}
+  m_LocalScale: {x: 3.3633618, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1618401132559788845}
@@ -7544,6 +7577,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &735775297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618401132969166420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e043a84845cf689428074eaa7c8c62cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  moveDistance: 3.5
+  obstacleType: 5
 --- !u!1 &1618401132971958400
 GameObject:
   m_ObjectHideFlags: 0
@@ -7694,6 +7742,7 @@ GameObject:
   - component: {fileID: 1618401133031298585}
   - component: {fileID: 1618401133031298584}
   - component: {fileID: 1618401133031298587}
+  - component: {fileID: 116025743}
   m_Layer: 8
   m_Name: Cube (3)
   m_TagString: Obstacle
@@ -7710,7 +7759,7 @@ Transform:
   m_GameObject: {fileID: 1618401133031298580}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.97, y: 0.5443, z: 76.15}
-  m_LocalScale: {x: 3.3633618, y: 1.0887007, z: 1}
+  m_LocalScale: {x: 3.3633618, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1618401132559788845}
@@ -7779,6 +7828,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &116025743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618401133031298580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e043a84845cf689428074eaa7c8c62cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  moveDistance: 3.5
+  obstacleType: 4
 --- !u!1 &1618401133049040387
 GameObject:
   m_ObjectHideFlags: 0

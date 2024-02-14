@@ -14,7 +14,6 @@ namespace Modifiers
             modifierView.SetVisuals(_isPositive, crowdModifyAmount);
         }
 
-
         public override void Modify(PlayerController playerController)
         {
             var playerCrowd = playerController.GetComponent<PlayerCrowd>();
