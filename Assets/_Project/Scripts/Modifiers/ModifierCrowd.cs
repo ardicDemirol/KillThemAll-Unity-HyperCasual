@@ -21,6 +21,7 @@ namespace Modifiers
             {
                 if(_isPositive) playerCrowd.AddShooter();
                 else playerCrowd.RemoveShooter(null);
+                Handheld.Vibrate();
             }
         }
     }

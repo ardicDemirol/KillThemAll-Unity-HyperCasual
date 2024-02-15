@@ -10,15 +10,12 @@ public class PlayerCrowd : MonoBehaviour
 
     [SerializeField] private int crowdSizeForDebug = 5;
     [SerializeField] private int startingCrowdSize = 1;
-
     [SerializeField] private Shooter shooterPrefab;
     [SerializeField] private List<Transform> spawnPoints = new();
-
     [SerializeField] private Animator[] animators;
-
     [SerializeField] private TMP_Text crowdSizeText;
 
-    private readonly WaitForSeconds _waitForOneSeconds = new(1f);
+    private static readonly WaitForSeconds _waitForOneSeconds = new(1f);
 
     private static readonly int AnimIDShoot = Animator.StringToHash("isShooting");
     private static readonly int AnimIDDeath = Animator.StringToHash("isDead");
@@ -113,10 +110,8 @@ public class PlayerCrowd : MonoBehaviour
 
         if (!CanRemove())
         {
-            //GameManager.Instance.StartCoroutine(GameManager.Instance.EndGame());
             Signals.Instance.OnPlayerLose?.Invoke();
             Signals.Instance.OnTriggerEnter?.Invoke();
-            //Signals.Instance.OnGameStopping?.Invoke();
         }
 
         StartCoroutine(ArrangeShooters());
@@ -129,12 +124,11 @@ public class PlayerCrowd : MonoBehaviour
         var position = spawnPoints[lastShooterIndex + 1].position;
         var shooter = Instantiate(shooterPrefab, position, Quaternion.identity, transform);
         Shooters.Add(shooter);
-        
+
         StartCoroutine(ArrangeShooters());
     }
     public IEnumerator ArrangeShooters()
     {
-        //Shooters.Sort((a, b) => a.transform.position.x.CompareTo(b.transform.position.x));
         yield return _waitForOneSeconds;
         for (int i = 0; i < Shooters.Count; i++)
         {
@@ -158,10 +152,8 @@ public class PlayerCrowd : MonoBehaviour
             lastShooter.transform.SetParent(null);
             lastShooter.GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.red);
 
-
             if (Shooters.Count <= 0)
             {
-                //GameManager.Instance.StartCoroutine(GameManager.Instance.EndGame());
                 Signals.Instance.OnPlayerLose?.Invoke();
                 Signals.Instance.OnTriggerEnter?.Invoke();
             }

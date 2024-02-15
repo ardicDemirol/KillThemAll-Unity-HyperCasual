@@ -67,7 +67,7 @@ public class SwerveMovement : MonoBehaviour
         }
         else if (Input.GetMouseButton(0))
         {
-            inputX = (Input.mousePosition.x - _anchorPosition.x);
+            inputX = (Input.mousePosition.x - _anchorPosition.x) * 0.08f;
             _anchorPosition = Input.mousePosition;
         }
         return inputX;

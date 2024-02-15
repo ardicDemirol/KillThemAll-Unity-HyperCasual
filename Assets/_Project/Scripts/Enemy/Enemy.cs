@@ -64,6 +64,7 @@ public class Enemy : MonoBehaviour
         {
             for (int i = 0; i < EnemyCount; i++)
             {
+                Handheld.Vibrate();
                 animators[i].SetBool(AnimIDDead, true);
                 animators[i].GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.gray);
             }
@@ -75,6 +76,7 @@ public class Enemy : MonoBehaviour
         {
             for (int i = 0; i < playerNumber; i++)
             {
+                Handheld.Vibrate();
                 animators[i].SetBool(AnimIDDead, true);
                 animators[i].GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.gray);
             }
