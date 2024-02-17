@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using System;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -13,7 +12,7 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject pauseButton;
 
-    private int _currentLevelIndex;
+    private short _currentSceneIndex;
     private bool _isPaused;
     private static readonly WaitForSeconds _waitForTwoSeconds = new(2f);
 
@@ -46,8 +45,8 @@ public class GameManager : MonoSingleton<GameManager>
     {
         yield return _waitForTwoSeconds;
 
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
+        _currentSceneIndex = (short)SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = (_currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
         SceneManager.LoadScene(nextSceneIndex);
     }
 

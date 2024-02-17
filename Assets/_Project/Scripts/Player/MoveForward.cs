@@ -3,8 +3,6 @@ using UnityEngine;
 public class MoveForward : MonoBehaviour
 {
     #region Variables
-    [SerializeField] private float moveSpeed = 8f;
-    [HideInInspector] public float CurrentMoveSpeed;
     public enum Direction
     {
         Forward,
@@ -15,14 +13,17 @@ public class MoveForward : MonoBehaviour
         Player,
         Bullet
     }
+
     public Direction MoveDirection;
     public Type ObjectType;
 
 
+    [SerializeField] private float moveSpeed = 8f;
+    [HideInInspector] public float CurrentMoveSpeed;
+
     private float _normalMoveSpeed;
 
     private Vector3 _moveDirectionVector;
-
 
     #endregion
 
@@ -49,8 +50,7 @@ public class MoveForward : MonoBehaviour
     }
     private void OnDisable() => UnSubscribeEvents();
 
-
-    public void SubscribeEvents()
+    public void SubscribeEvents() 
     {
         Signals.Instance.OnGameRunning += SetRunningSpeed;
     }

@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class ObstacleController : MonoBehaviour
 {
-    [SerializeField] private float speed;
-    [SerializeField] private float moveDistance;
-
     public enum ObstacleType
     {
         None,
@@ -17,6 +14,10 @@ public class ObstacleController : MonoBehaviour
     }
 
     public ObstacleType ObstacleBehaviour;
+
+    [SerializeField] private float speed;
+    [SerializeField] private float moveDistance;
+
 
     private void Start()
     {
