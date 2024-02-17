@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GameManager">
+    <Position X="2.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAgIAEAAIAAQgAAAAAAAEAAEDAAAIQBCABAAQCAQ=</HashCode>
+      <FileName>Assets\_Project\Scripts\Controllers\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObstacleController">
+    <Position X="13" Y="2.75" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="ObstacleController.ObstacleType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Controllers\ObstacleController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAQAAAAAIEAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Controllers\ObstacleController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Enemy">
+    <Position X="6" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAiABAAAAEAQQAAAAAAAIAABAAAAIgAAAhAAQCEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Enemy\Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonoSingleton&lt;T&gt;">
+    <Position X="4.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Other\MonoSingleton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MoveForward">
+    <Position X="11.25" Y="2.75" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="MoveForward.Direction" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Player\MoveForward.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="MoveForward.Type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Player\MoveForward.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAQECAAAAQAQAAAAAgAAAAAgAAMAIAABAAACAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Player\MoveForward.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerController">
+    <Position X="20.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAIAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Player\PlayerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerCrowd">
+    <Position X="18.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAgRBBACgABAUQAAAAAIAIEAACIgAogEAABAAACGA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Player\PlayerCrowd.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shootable">
+    <Position X="14.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Player\Shootable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shooter">
+    <Position X="9.5" Y="2.75" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Shooter.ShooterType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Player\Shooter.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAgABAAAAAABBQAAAAAAAAIAACBAAAI4AAABAAACEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Player\Shooter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SwerveMovement">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAACAAQAABEAwAAAEIAACAAACAAAAYAAAABAAACAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Player\SwerveMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Signals">
+    <Position X="4.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAMAQAACAAAAAAAAAgIBAAAAAAAQAAAAQAIAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Signals\Signals.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Modifiers.ModifierBase">
+    <Position X="0.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Modifiers\ModifierBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Modifiers.ModifierCrowd">
+    <Position X="0.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAACAAAAAAAAAAAACAEBAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Modifiers\ModifierCrowd.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Modifiers.ModifierView">
+    <Position X="7.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAEAAAAAAAAAAAABAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Modifiers\ModifierView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnityEngine.MonoBehaviour" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="IDamageable">
+    <Position X="2.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Enemy\IDamageable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IRemoveShooter">
+    <Position X="4.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Enemy\IDamageable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
