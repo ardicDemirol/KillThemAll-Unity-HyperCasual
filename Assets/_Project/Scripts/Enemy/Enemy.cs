@@ -67,9 +67,7 @@ public class Enemy : MonoBehaviour
                 animators[i].SetBool(AnimIDDead, true);
                 animators[i].GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.gray);
             }
-
             Signals.Instance.OnPlayerWin?.Invoke();
-            //Debug.Log("Player Win");
         }
         else
         {
@@ -80,7 +78,6 @@ public class Enemy : MonoBehaviour
                 animators[i].GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.gray);
             }
             Signals.Instance.OnPlayerLose?.Invoke();
-            //Debug.Log("Player Lose");
         }
 
         ChangeEnemyNumber(EnemyCount - playerNumber);

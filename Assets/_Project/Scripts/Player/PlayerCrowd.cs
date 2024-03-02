@@ -8,7 +8,6 @@ public class PlayerCrowd : MonoBehaviour
     #region Variables
     public List<Shooter> Shooters = new();
 
-    [SerializeField] private int crowdSizeForDebug = 5;
     [SerializeField] private int startingCrowdSize = 1;
     [SerializeField] private Shooter shooterPrefab;
     [SerializeField] private List<Transform> spawnPoints = new();
@@ -20,7 +19,7 @@ public class PlayerCrowd : MonoBehaviour
     private static readonly int AnimIDShoot = Animator.StringToHash("isShooting");
     private static readonly int AnimIDDeath = Animator.StringToHash("isDead");
 
-    private Shooter _willBeRemoveShooter;
+    private Shooter willBeRemoveShooter;
     #endregion
 
     private void Awake()
@@ -31,13 +30,7 @@ public class PlayerCrowd : MonoBehaviour
 
     private void OnEnable() => SubscribeEvents();
 
-    
-
     private void OnDisable() => UnSubscribeEvents();
-
-
-    [ContextMenu("Set")]
-    public void Debug_ResizeCrowd() => Set(crowdSizeForDebug);
 
     private void SubscribeEvents()
     {
@@ -67,7 +60,7 @@ public class PlayerCrowd : MonoBehaviour
 
     private void WarController()
     {
-        GameManager.Instance.MoveForward.CurrentMoveSpeed = 0;
+        GameManager.Instance.MoveForward.CanMoving = false; 
         animators = GetComponentsInChildren<Animator>();
         foreach (var animator in animators)
         {
@@ -99,16 +92,16 @@ public class PlayerCrowd : MonoBehaviour
     {
         if(Shooters.Count == 0) return;
 
-        _willBeRemoveShooter = Shooters[^1];
+        willBeRemoveShooter = Shooters[^1];
 
-        if (obj) _willBeRemoveShooter = obj.GetComponent<Shooter>();
+        if (obj) willBeRemoveShooter = obj.GetComponent<Shooter>();
 
-        _willBeRemoveShooter.GetComponent<Animator>().SetBool(AnimIDDeath, true);
-        _willBeRemoveShooter.GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.gray);
+        willBeRemoveShooter.GetComponent<Animator>().SetBool(AnimIDDeath, true);
+        willBeRemoveShooter.GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.gray);
 
-        _willBeRemoveShooter.transform.SetParent(null);
+        willBeRemoveShooter.transform.SetParent(null);
 
-        Shooters.Remove(_willBeRemoveShooter);
+        Shooters.Remove(willBeRemoveShooter);
 
         if (!CanRemove())
         {

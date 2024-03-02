@@ -19,9 +19,8 @@ public class MoveForward : MonoBehaviour
 
 
     [SerializeField] private float moveSpeed = 8f;
-    [HideInInspector] public float CurrentMoveSpeed;
 
-    private float _normalMoveSpeed;
+    public bool CanMoving;
 
     private Vector3 _moveDirectionVector;
 
@@ -31,9 +30,6 @@ public class MoveForward : MonoBehaviour
 
     private void Start()
     {
-        CurrentMoveSpeed = moveSpeed;
-        _normalMoveSpeed = moveSpeed;
-
         switch (MoveDirection)
         {
             case Direction.Forward:
@@ -46,22 +42,19 @@ public class MoveForward : MonoBehaviour
     }
     private void Update()
     {
-        transform.position += _moveDirectionVector * (CurrentMoveSpeed * Time.deltaTime);
+        if (CanMoving) transform.position += _moveDirectionVector * (moveSpeed * Time.deltaTime);
     }
     private void OnDisable() => UnSubscribeEvents();
 
-    public void SubscribeEvents() 
+    public void SubscribeEvents()
     {
-        Signals.Instance.OnGameRunning += SetRunningSpeed;
+        Signals.Instance.OnGameRunning += SetRunningState;
     }
 
     public void UnSubscribeEvents()
     {
-        Signals.Instance.OnGameRunning -= SetRunningSpeed;
+        Signals.Instance.OnGameRunning -= SetRunningState;
     }
-    private void SetRunningSpeed()
-    {
-        CurrentMoveSpeed = _normalMoveSpeed;
-    }
+    private void SetRunningState() => CanMoving = true;
 
 }

@@ -36,7 +36,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     internal IEnumerator EndGame()
     {
-        MoveForward.CurrentMoveSpeed = 0;
+        MoveForward.CanMoving = false;
         yield return _waitForTwoSeconds;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
