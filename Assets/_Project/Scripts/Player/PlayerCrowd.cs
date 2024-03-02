@@ -23,13 +23,15 @@ public class PlayerCrowd : MonoBehaviour
     private Shooter _willBeRemoveShooter;
     #endregion
 
-    private void OnEnable() => SubscribeEvents();
-
     private void Awake()
     {
         Set(startingCrowdSize);
         SetPlayerNumber(Shooters.Count);
     }
+
+    private void OnEnable() => SubscribeEvents();
+
+    
 
     private void OnDisable() => UnSubscribeEvents();
 

@@ -20,7 +20,6 @@ public class Enemy : MonoBehaviour
         ChangeEnemyNumber(EnemyCount);
     }
 
-
     private void OnEnable() => SubscribeEvents();
     private void OnDisable() => UnSubscribeEvents();
     private void SubscribeEvents()
